@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:4200"
     api_v1_prefix: str = "/api/v1"
     psr_fixtures_root: str | None = None
+    psr_origin_path: str = "/workspace/PowerBuilder-Example"
 
     @property
     def cors_origins_list(self) -> list[str]:
@@ -41,5 +42,13 @@ class Settings(BaseSettings):
     def psr_route_map_path(self) -> Path:
         return self.psr_metadata_dir / "psr-route-map.json"
 
+
+    @property
+    def resolved_psr_origin_path(self) -> Path:
+        return Path(self.psr_origin_path).expanduser().resolve()
+
+    @property
+    def psr_manifest_path(self) -> Path:
+        return self.psr_metadata_dir / "manifest.json"
 
 settings = Settings()
