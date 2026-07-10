@@ -28,11 +28,13 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/power_builder
       ENVIRONMENT: development
+      PSR_FIXTURES_ROOT: /fixtures/psr
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ./apps/backend:/app
+      - ./fixtures:/fixtures:ro
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 volumes:
