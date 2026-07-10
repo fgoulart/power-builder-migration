@@ -1,0 +1,21 @@
+<main class="home">
+  <header>
+    <h1>{{ title() }}</h1>
+    <p>Monorepo Angular + Python/FastAPI + Alembic</p>
+  </header>
+
+  <section class="status-card">
+    <h2>Status da API</h2>
+
+    @if (apiStatus()) {
+      <p class="ok">
+        Backend conectado — status: <strong>{{ apiStatus() }}</strong>
+        ({{ apiEnvironment() }})
+      </p>
+    } @else if (apiError()) {
+      <p class="error">{{ apiError() }}</p>
+    } @else {
+      <p>Verificando conexão com o backend...</p>
+    }
+  </section>
+</main>
