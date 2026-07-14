@@ -4,7 +4,7 @@ Revision ID: 001
 Revises:
 Create Date: 2026-07-10
 
-PBBV-2 BA note (remediation-6): follow-on revision 002_psr_catalog (psr_artifacts / nested / route mappings) remains gated on the complete Jira specification in docs/pbbv-2-jira-specification.md after BA inspection of destination repo and card config.
+PBBV-2 BA complete (remediation-6): Jira specification authored at docs/pbbv-2-jira-specification.md. Follow-on revision 002_psr_catalog (psr_artifacts / nested / route mappings) stays engineering-gated until that spec is accepted and PBL library decomposition clears.
 
 """
 
