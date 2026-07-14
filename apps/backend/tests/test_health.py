@@ -85,7 +85,7 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
 
 
 # PBBV-2 BA complete: docs/pbbv-2-jira-specification.md must remain discoverable for Gate A/B.
-# Remediation-7: BA deliverable is the Jira specification file (outside apps/backend); gate test asserts anchors.
+# Remediation-8: BA deliverable is docs/pbbv-2-jira-specification.md (outside apps/backend allowlist); gate test asserts anchors.
 PBBV2_BA_JIRA_SPEC_RELPATH = "docs/pbbv-2-jira-specification.md"
 PBBV2_BA_NOOP_REMEDIATION_MARKER = "pbbv-2-ba-jira-spec-gates-remediation-6"
 
