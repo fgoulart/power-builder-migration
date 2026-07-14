@@ -14,7 +14,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Power Builder API",
-    description="Backend API do monorepo Power Builder Migration",
+    description="Backend API for the Power Builder Migration monorepo",
     version="0.1.0",
     lifespan=lifespan,
 )
