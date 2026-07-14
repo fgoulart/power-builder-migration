@@ -53,7 +53,8 @@ def test_psr_fixtures_root_resolves_monorepo_layout() -> None:
 
     fixtures_root = settings.resolved_psr_fixtures_root
     assert fixtures_root.name == "psr"
-    assert settings.psr_golden_dir == fixtures_root / "golden"
+    assert settings.psr_origin_dir == fixtures_root / "origin"
+    assert settings.psr_golden_dir == fixtures_root / "origin"
     assert settings.psr_metadata_dir == fixtures_root / "metadata"
     assert settings.psr_route_map_path == fixtures_root / "metadata" / "psr-route-map.json"
 
@@ -74,6 +75,7 @@ def test_comprep_route_mapping_matches_planned_report_endpoint() -> None:
 def test_verify_psr_target_directories_align_with_settings() -> None:
     from app.core.config import settings
 
-    assert settings.psr_golden_dir.parts[-2:] == ("psr", "golden")
+    assert settings.psr_golden_dir.parts[-2:] == ("psr", "origin")
     assert settings.psr_metadata_dir.parts[-2:] == ("psr", "metadata")
     assert settings.psr_route_map_path.name == "psr-route-map.json"
+    assert settings.psr_manifest_path.name == "manifest.json"
