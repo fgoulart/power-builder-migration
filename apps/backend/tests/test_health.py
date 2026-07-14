@@ -105,4 +105,4 @@ def test_pbbv2_ba_jira_specification_gates() -> None:
 
 # PBBV-2 BA complete: docs/pbbv-2-jira-specification.md must remain discoverable for Gate A/B.
 PBBV2_BA_JIRA_SPEC_RELPATH = "docs/pbbv-2-jira-specification.md"
-PBBV2_BA_NOOP_REMEDIATION_MARKER = "pbbv-2-ba-jira-spec-gates-remediation-4"
+PBBV2_BA_NOOP_REMEDIATION_MARKER = "pbbv-2-ba-jira-spec-gates-remediation-5"
