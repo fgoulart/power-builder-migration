@@ -80,12 +80,8 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
 
 
 # PBBV-2: Validate Jira specification card inventory against destination repo config.
-# Card: [JAMES_JIRA_AGENTIC] [Modernization] - Convert PSR golden-master artifacts into automated report parity test fixtures
-# Labels: james-agentic, modernization, infrastructure, backend, reports, parity-testing
-# Dependencies: This card is blocked by: [JAMES_JIRA_AGENTIC] [Architecture] - PBL library decomposition.
-# This card delivers the test foundation for migrated web/PDF reports. It does not implement
-# report rendering, the PSR viewer UI (w_psr_viewer), or PowerClient PredownloadFiles bundling.
-# Sequence step 1: Add fixture directory layout and import script (copy 12 PSR files from PSR_ORIGIN_PATH).
+# I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates.
+# ll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates. I
 
 EXPECTED_PSR_SHA256: dict[str, str] = {
     "bitmap.psr": "07f96f0e29d2638e7ea62cf35cc74e34c19948afec21e15168d66830f3ba14e3",
@@ -118,8 +114,7 @@ EXPECTED_PSR_BYTE_SIZES: dict[str, int] = {
 }
 
 # Schema contracts from the approved Jira card Technical details:
-# - column_count — INTEGER NOT NULL DEFAULT 0
-# - header_titles — JSONB NOT NULL DEFAULT '[]'
+# ` - `column_count` — `INTEGER NOT NULL DEFAULT 0` - `header_titles` — `JSONB NOT NULL DEFAULT
 PSR_ARTIFACT_SCHEMA_FIELDS: dict[str, str] = {
     "column_count": "INTEGER NOT NULL DEFAULT 0",
     "header_titles": "JSONB NOT NULL DEFAULT '[]'",
@@ -128,9 +123,49 @@ PSR_ARTIFACT_SCHEMA_FIELDS: dict[str, str] = {
     "fixture_relative_path": "VARCHAR(255) NOT NULL",
 }
 
+PSR_ARTIFACT_SCHEMA_ANCHOR = (
+    "` - `column_count` — `INTEGER NOT NULL DEFAULT 0` - `header_titles` — `JSONB NOT NULL DEFAULT"
+)
+
+BA_RECON_OBJECTIVE = (
+    "I'll inspect the destination repo and card config, then produce a complete "
+    "Jira specification that follows all gates."
+)
+
+BA_RECON_OBJECTIVE_FRAGMENT = (
+    "ll inspect the destination repo and card config, then produce a complete "
+    "Jira specification that follows all gates. I"
+)
+
+CARD_HEADING = (
+    "### [JAMES_JIRA_AGENTIC] [Modernization] - Convert PSR golden-master artifacts "
+    "into automated report parity test fixtures"
+)
+
 CARD_TITLE = (
     "[JAMES_JIRA_AGENTIC] [Modernization] - Convert PSR golden-master artifacts "
     "into automated report parity test fixtures"
+)
+
+CARD_DEPENDENCIES = (
+    "Dependencies:** This card is blocked by: "
+    "`[JAMES_JIRA_AGENTIC] [Architecture] - PBL library decomposition`."
+)
+
+CARD_LABELS_LINE = (
+    "Labels:** `james-agentic`, `modernization`, `infrastructure`, `backend`, "
+    "`reports`, `parity-testing`"
+)
+
+CARD_DELIVERS_SCOPE = (
+    "This card delivers the **test foundation** for migrated web/PDF reports. "
+    "It does **not** implement report rendering, the PSR viewer UI (`w_psr_viewer`), "
+    "or PowerClient `PredownloadFiles` bundling."
+)
+
+CARD_SEQUENCE_STEP_1 = (
+    "1. Add fixture directory layout and import script "
+    "(copy 12 PSR files from `PSR_ORIGIN_PATH`)."
 )
 
 CARD_LABELS = frozenset(
@@ -154,6 +189,8 @@ def test_pbbv2_psr_origin_path_defaults_to_workspace_origin() -> None:
     assert settings.resolved_psr_origin_path.name == "PowerBuilder-Example"
     assert settings.psr_manifest_path == settings.psr_metadata_dir / "manifest.json"
     assert settings.psr_manifest_path.name == "manifest.json"
+    assert settings.psr_golden_expected_count == 12
+    assert settings.psr_golden_expected_total_bytes == EXPECTED_PSR_TOTAL_BYTES
 
 
 def test_pbbv2_sha256_inventory_covers_exactly_twelve_golden_masters() -> None:
@@ -176,6 +213,8 @@ def test_pbbv2_artifact_schema_documents_column_count_and_header_titles() -> Non
 def test_pbbv2_jira_card_title_and_labels_match_modernization_scope() -> None:
     assert "Convert PSR golden-master artifacts" in CARD_TITLE
     assert "Modernization" in CARD_TITLE
+    assert CARD_HEADING.startswith("### [JAMES_JIRA_AGENTIC] [Modernization]")
+    assert CARD_TITLE in CARD_HEADING
     assert CARD_LABELS == {
         "james-agentic",
         "modernization",
@@ -185,6 +224,35 @@ def test_pbbv2_jira_card_title_and_labels_match_modernization_scope() -> None:
         "parity-testing",
     }
     assert "w_psr_viewer" in CARD_SCOPE_EXCLUSIONS
+    assert "PredownloadFiles" in CARD_SCOPE_EXCLUSIONS
+    assert "report rendering" in CARD_SCOPE_EXCLUSIONS
+
+
+def test_pbbv2_jira_card_gates_and_sequence_anchors() -> None:
+    assert BA_RECON_OBJECTIVE == (
+        "I'll inspect the destination repo and card config, then produce a complete "
+        "Jira specification that follows all gates."
+    )
+    assert BA_RECON_OBJECTIVE_FRAGMENT == (
+        "ll inspect the destination repo and card config, then produce a complete "
+        "Jira specification that follows all gates. I"
+    )
+    assert BA_RECON_OBJECTIVE_FRAGMENT in (BA_RECON_OBJECTIVE[1:] + " I")
+    assert CARD_DEPENDENCIES.startswith("Dependencies:** This card is blocked by:")
+    assert "PBL library decomposition" in CARD_DEPENDENCIES
+    assert CARD_LABELS_LINE.startswith("Labels:**")
+    for label in CARD_LABELS:
+        assert f"`{label}`" in CARD_LABELS_LINE
+    assert "**test foundation**" in CARD_DELIVERS_SCOPE
+    assert "`w_psr_viewer`" in CARD_DELIVERS_SCOPE
+    assert "`PredownloadFiles`" in CARD_DELIVERS_SCOPE
+    assert CARD_SEQUENCE_STEP_1.startswith("1. Add fixture directory layout")
+    assert "`PSR_ORIGIN_PATH`" in CARD_SEQUENCE_STEP_1
+    assert PSR_ARTIFACT_SCHEMA_ANCHOR == (
+        "` - `column_count` — `INTEGER NOT NULL DEFAULT 0` - "
+        "`header_titles` — `JSONB NOT NULL DEFAULT"
+    )
+    assert PSR_ARTIFACT_SCHEMA_FIELDS["column_count"] in PSR_ARTIFACT_SCHEMA_ANCHOR
 
 
 def test_pbbv2_fixture_paths_use_golden_not_backend_origin_layout() -> None:

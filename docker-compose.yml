@@ -28,6 +28,7 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/power_builder
       ENVIRONMENT: development
+      # PBBV-2: 1. Add fixture directory layout and import script (copy 12 PSR files from `PSR_ORIGIN_PATH`).
       PSR_FIXTURES_ROOT: /fixtures/psr
       PSR_ORIGIN_PATH: /workspace/PowerBuilder-Example
     depends_on:

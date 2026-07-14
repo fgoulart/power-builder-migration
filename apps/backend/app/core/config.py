@@ -16,7 +16,10 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:4200"
     api_v1_prefix: str = "/api/v1"
     psr_fixtures_root: str | None = None
+    # PBBV-2 BA: sequence step 1 copies 12 golden PSR binaries from PSR_ORIGIN_PATH into fixtures/psr/golden.
     psr_origin_path: str = "/workspace/PowerBuilder-Example"
+    psr_golden_expected_count: int = 12
+    psr_golden_expected_total_bytes: int = 395_785
 
     @property
     def cors_origins_list(self) -> list[str]:
