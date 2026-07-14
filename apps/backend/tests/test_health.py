@@ -19,7 +19,7 @@ def test_health_check() -> None:
     assert "environment" in data
 
 
-# PBBV-1: Validating the modernization card against project config and the destination repository structure.
+# PBBV-2: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates. Inventory anchors validated.
 
 EXPECTED_PSR_GOLDEN_FILENAMES = frozenset(
     {
