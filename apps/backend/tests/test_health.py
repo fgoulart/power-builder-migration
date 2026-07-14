@@ -15,8 +15,14 @@ def test_health_check() -> None:
     response = client.get("/api/v1/health")
     assert response.status_code == 200
     data = response.json()
-    assert data["status"] == "ok"
+    assert data["status"] in {"ok", "degraded"}
     assert "environment" in data
+    assert data["public_api_url"] == "http://localhost:8000"
+    assert data["session_timeout_seconds"] == 3600
+    assert data["request_timeout_seconds"] == 3600
+    assert data["transaction_timeout_seconds"] == 120
+    assert "db_ok" in data
+    assert "license_configured" in data
 
 
 # PBBV-1: Validating the modernization card against project config and the destination repository structure.
@@ -77,3 +83,40 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
     assert settings.psr_golden_dir.parts[-2:] == ("psr", "golden")
     assert settings.psr_metadata_dir.parts[-2:] == ("psr", "metadata")
     assert settings.psr_route_map_path.name == "psr-route-map.json"
+
+
+def test_hosting_settings_defaults_replace_powerserver_5088() -> None:
+    from app.core.config import Settings
+
+    cfg = Settings()
+    assert cfg.public_api_url == "http://localhost:8000"
+    assert cfg.bind_host == "0.0.0.0"
+    assert cfg.bind_port == 8000
+    assert cfg.https_enabled is False
+    assert cfg.session_timeout_seconds == 3600
+    assert cfg.request_timeout_seconds == 3600
+    assert cfg.transaction_timeout_seconds == 120
+    assert cfg.license_required is False
+
+
+def test_license_gate_optional_when_not_required() -> None:
+    from app.core.config import Settings
+    from app.core.license_gate import assert_license_ready, license_is_configured
+
+    cfg = Settings(license_required=False)
+    assert_license_ready(cfg)
+    assert license_is_configured(cfg) is False
+
+
+def test_license_gate_requires_secret_when_enabled() -> None:
+    import pytest
+
+    from app.core.config import Settings
+    from app.core.license_gate import LicenseGateError, assert_license_ready
+
+    cfg = Settings(license_required=True, appeon_license_key=None, license_key=None)
+    with pytest.raises(LicenseGateError):
+        assert_license_ready(cfg)
+
+    cfg_ok = Settings(license_required=True, appeon_license_key="appeon-demo-secret-value")
+    assert_license_ready(cfg_ok)

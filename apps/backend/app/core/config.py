@@ -15,6 +15,16 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg2://postgres:postgres@localhost:5432/power_builder"
     cors_origins: str = "http://localhost:4200"
     api_v1_prefix: str = "/api/v1"
+    public_api_url: str = "http://localhost:8000"
+    bind_host: str = "0.0.0.0"
+    bind_port: int = 8000
+    https_enabled: bool = False
+    session_timeout_seconds: int = 3600
+    request_timeout_seconds: int = 3600
+    transaction_timeout_seconds: int = 120
+    license_required: bool = False
+    appeon_license_key: str | None = None
+    license_key: str | None = None
     psr_fixtures_root: str | None = None
 
     @property
