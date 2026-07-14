@@ -58,4 +58,4 @@ settings = Settings()
 
 # PBBV-2 BA complete: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates. Inventory freeze documented in that spec.
 # BA Jira-spec path (Gate A discoverability): docs/pbbv-2-jira-specification.md
-# Inventory freeze (BA remediation-11): 395785 bytes / 12 PSR golden masters under fixtures/psr/origin/.
+# Inventory freeze (BA remediation-12): 395785 bytes / 12 PSR golden masters under fixtures/psr/origin/.
