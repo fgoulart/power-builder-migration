@@ -55,3 +55,5 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+# PBBV-2 BA: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates.

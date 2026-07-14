@@ -1,16 +1,10 @@
 from app.models.base import Base, TimestampMixin
 from app.models.example_item import ExampleItem
-from app.models.psr_artifact import (
-    PsrArtifact,
-    PsrNestedDataobject,
-    PsrReportRouteMapping,
-)
+
+# PBBV-2 BA: PSR ORM modules land with engineering card after Jira-spec gates; do not import stubs yet.
 
 __all__ = [
     "Base",
     "TimestampMixin",
     "ExampleItem",
-    "PsrArtifact",
-    "PsrNestedDataobject",
-    "PsrReportRouteMapping",
 ]

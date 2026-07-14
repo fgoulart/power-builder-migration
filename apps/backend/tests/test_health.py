@@ -101,3 +101,5 @@ def test_pbbv2_ba_jira_specification_gates() -> None:
     assert "I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates." in text
     assert "ll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates. I" in text
     assert EXPECTED_PSR_TOTAL_BYTES == 395_785
+
+# PBBV-2 BA complete: docs/pbbv-2-jira-specification.md must remain discoverable for Gate A/B.
