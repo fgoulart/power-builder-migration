@@ -81,3 +81,22 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
     assert settings.psr_metadata_dir.parts[-2:] == ("psr", "metadata")
     assert settings.psr_route_map_path.name == "psr-route-map.json"
     assert settings.psr_manifest_path.name == "manifest.json"
+
+
+
+def test_pbbv2_ba_jira_specification_gates() -> None:
+    """PBBV-2 BA: complete Jira specification must remain gated and discoverable."""
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[3]
+    spec = repo_root / "docs" / "pbbv-2-jira-specification.md"
+    assert spec.is_file(), f"missing BA Jira specification: {spec}"
+    text = spec.read_text(encoding="utf-8")
+    assert "### [JAMES_JIRA_AGENTIC] [Modernization] - Convert PSR golden-master artifacts into automated report parity test fixtures" in text
+    assert "Dependencies:** This card is blocked by: `[JAMES_JIRA_AGENTIC] [Architecture] - PBL library decomposition`." in text
+    assert "Labels:** `james-agentic`, `modernization`, `infrastructure`, `backend`, `reports`, `parity-testing`" in text
+    assert "This card delivers the **test foundation** for migrated web/PDF reports. It does **not** implement report rendering, the PSR viewer UI (`w_psr_viewer`), or PowerClient `PredownloadFiles` bundling." in text
+    assert "1. Add fixture directory layout and import script (copy 12 PSR files from `PSR_ORIGIN_PATH`)." in text
+    assert "` - `column_count` — `INTEGER NOT NULL DEFAULT 0` - `header_titles` — `JSONB NOT NULL DEFAULT" in text
+    assert "I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates." in text
+    assert EXPECTED_PSR_TOTAL_BYTES == 395_785
