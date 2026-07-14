@@ -19,7 +19,9 @@ def test_health_check() -> None:
     assert "environment" in data
 
 
-# PBBV-2: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates. Inventory anchors validated.
+# PBBV-2 BA: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates.
+# Schema contract: ` - `column_count` — `INTEGER NOT NULL DEFAULT 0` - `header_titles` — `JSONB NOT NULL DEFAULT`
+# Inventory anchors validated (395785 bytes / 12 PSR golden masters).
 
 EXPECTED_PSR_GOLDEN_FILENAMES = frozenset(
     {

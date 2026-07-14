@@ -38,7 +38,7 @@ class Settings(BaseSettings):
 
     @property
     def psr_golden_dir(self) -> Path:
-        # Golden-master binaries live under origin/ (PBBV-2 BA Jira-spec layout)
+        # Golden-master binaries live under origin/ (PBBV-2 BA complete Jira-spec gates layout)
         return self.psr_origin_dir
 
     @property
