@@ -99,4 +99,5 @@ def test_pbbv2_ba_jira_specification_gates() -> None:
     assert "1. Add fixture directory layout and import script (copy 12 PSR files from `PSR_ORIGIN_PATH`)." in text
     assert "` - `column_count` — `INTEGER NOT NULL DEFAULT 0` - `header_titles` — `JSONB NOT NULL DEFAULT" in text
     assert "I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates." in text
+    assert "ll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates. I" in text
     assert EXPECTED_PSR_TOTAL_BYTES == 395_785
