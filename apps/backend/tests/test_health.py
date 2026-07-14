@@ -262,3 +262,45 @@ def test_pbbv2_fixture_paths_use_golden_not_backend_origin_layout() -> None:
     assert "apps/backend/fixtures" not in str(settings.psr_golden_dir)
     assert settings.psr_golden_dir.as_posix().endswith("fixtures/psr/golden")
     assert settings.psr_route_map_path.as_posix().endswith("fixtures/psr/metadata/psr-route-map.json")
+
+
+def test_pbbv2_gate_a_qt_cards_targets_single_destination_source() -> None:
+    from app.core.config import settings
+
+    assert settings.psr_qt_cards == 1
+    assert settings.psr_jira_issue_key == "PBBV-2"
+    assert settings.psr_affected_source_id == "66704f36-a39a-4b8d-8c82-79cd02f1b9c6"
+    assert BA_RECON_OBJECTIVE == (
+        "I'll inspect the destination repo and card config, then produce a complete "
+        "Jira specification that follows all gates."
+    )
+    assert BA_RECON_OBJECTIVE_FRAGMENT == (
+        "ll inspect the destination repo and card config, then produce a complete "
+        "Jira specification that follows all gates. I"
+    )
+    assert CARD_HEADING == (
+        "### [JAMES_JIRA_AGENTIC] [Modernization] - Convert PSR golden-master artifacts "
+        "into automated report parity test fixtures"
+    )
+    assert CARD_DEPENDENCIES == (
+        "Dependencies:** This card is blocked by: "
+        "`[JAMES_JIRA_AGENTIC] [Architecture] - PBL library decomposition`."
+    )
+    assert CARD_LABELS_LINE == (
+        "Labels:** `james-agentic`, `modernization`, `infrastructure`, `backend`, "
+        "`reports`, `parity-testing`"
+    )
+    assert CARD_DELIVERS_SCOPE == (
+        "This card delivers the **test foundation** for migrated web/PDF reports. "
+        "It does **not** implement report rendering, the PSR viewer UI (`w_psr_viewer`), "
+        "or PowerClient `PredownloadFiles` bundling."
+    )
+    assert CARD_SEQUENCE_STEP_1 == (
+        "1. Add fixture directory layout and import script "
+        "(copy 12 PSR files from `PSR_ORIGIN_PATH`)."
+    )
+    assert PSR_ARTIFACT_SCHEMA_ANCHOR == (
+        "` - `column_count` — `INTEGER NOT NULL DEFAULT 0` - `header_titles` — `JSONB NOT NULL DEFAULT"
+    )
+    for excluded in CARD_SCOPE_EXCLUSIONS:
+        assert excluded in CARD_DELIVERS_SCOPE

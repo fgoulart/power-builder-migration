@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     psr_origin_path: str = "/workspace/PowerBuilder-Example"
     psr_golden_expected_count: int = 12
     psr_golden_expected_total_bytes: int = 395_785
+    # PBBV-2 Gate A: QT_CARDS=1 — single modernization card for destination-only PSR fixture pipeline.
+    psr_qt_cards: int = 1
+    psr_jira_issue_key: str = "PBBV-2"
+    psr_affected_source_id: str = "66704f36-a39a-4b8d-8c82-79cd02f1b9c6"
 
     @property
     def cors_origins_list(self) -> list[str]:
