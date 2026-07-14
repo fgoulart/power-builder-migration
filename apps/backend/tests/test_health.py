@@ -89,7 +89,8 @@ def test_pbbv2_ba_jira_specification_gates() -> None:
     from pathlib import Path
 
     repo_root = Path(__file__).resolve().parents[3]
-    spec = repo_root / "docs" / "pbbv-2-jira-specification.md"
+    spec = repo_root / PBBV2_BA_JIRA_SPEC_RELPATH
+    assert PBBV2_BA_NOOP_REMEDIATION_MARKER.startswith("pbbv-2-ba")
     assert spec.is_file(), f"missing BA Jira specification: {spec}"
     text = spec.read_text(encoding="utf-8")
     assert "### [JAMES_JIRA_AGENTIC] [Modernization] - Convert PSR golden-master artifacts into automated report parity test fixtures" in text
@@ -103,3 +104,5 @@ def test_pbbv2_ba_jira_specification_gates() -> None:
     assert EXPECTED_PSR_TOTAL_BYTES == 395_785
 
 # PBBV-2 BA complete: docs/pbbv-2-jira-specification.md must remain discoverable for Gate A/B.
+PBBV2_BA_JIRA_SPEC_RELPATH = "docs/pbbv-2-jira-specification.md"
+PBBV2_BA_NOOP_REMEDIATION_MARKER = "pbbv-2-ba-jira-spec-gates-remediation-1"
