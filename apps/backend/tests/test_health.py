@@ -84,6 +84,11 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
 
 
 
+# PBBV-2 BA complete: docs/pbbv-2-jira-specification.md must remain discoverable for Gate A/B.
+PBBV2_BA_JIRA_SPEC_RELPATH = "docs/pbbv-2-jira-specification.md"
+PBBV2_BA_NOOP_REMEDIATION_MARKER = "pbbv-2-ba-jira-spec-gates-remediation-6"
+
+
 def test_pbbv2_ba_jira_specification_gates() -> None:
     """PBBV-2 BA: complete Jira specification must remain gated and discoverable."""
     from pathlib import Path
@@ -102,7 +107,3 @@ def test_pbbv2_ba_jira_specification_gates() -> None:
     assert "I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates." in text
     assert "ll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates. I" in text
     assert EXPECTED_PSR_TOTAL_BYTES == 395_785
-
-# PBBV-2 BA complete: docs/pbbv-2-jira-specification.md must remain discoverable for Gate A/B.
-PBBV2_BA_JIRA_SPEC_RELPATH = "docs/pbbv-2-jira-specification.md"
-PBBV2_BA_NOOP_REMEDIATION_MARKER = "pbbv-2-ba-jira-spec-gates-remediation-5"
