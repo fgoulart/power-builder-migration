@@ -25,4 +25,4 @@ def get_db() -> Generator[Session, None, None]:
     finally:
         db.close()
 
-# PBBV-2 BA Gate A (remediation-27): PSR catalog ORM/migration deferred; discoverability via applied docs/pbbv-2-jira-specification.md.
+# PBBV-2 BA Gate A (remediation-28): PSR catalog ORM/migration deferred; discoverability via applied docs/pbbv-2-jira-specification.md.
