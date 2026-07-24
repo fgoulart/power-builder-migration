@@ -24,3 +24,5 @@ def get_db() -> Generator[Session, None, None]:
         yield db
     finally:
         db.close()
+
+# PBBV-2 BA Gate A (remediation-15): PSR catalog ORM/migration deferred; discoverability via docs/pbbv-2-jira-specification.md (no-op remediation attempt 1).

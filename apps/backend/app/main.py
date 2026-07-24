@@ -33,3 +33,5 @@ app.include_router(v1_router, prefix=settings.api_v1_prefix, tags=["v1"])
 @app.get("/")
 def root() -> dict[str, str]:
     return {"message": "Power Builder API", "docs": "/docs"}
+
+# PBBV-2 BA Gate A (remediation-15): docs/pbbv-2-jira-specification.md is the BA deliverable; /api/v1/psr/* stays deferred. I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates.

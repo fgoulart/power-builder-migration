@@ -9,3 +9,5 @@ class ExampleItem(Base, TimestampMixin):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
+
+# PBBV-2 BA Gate A (remediation-15): do not extend ExampleItem for PSR catalog; see docs/pbbv-2-jira-specification.md.
