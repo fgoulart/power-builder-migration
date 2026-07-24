@@ -4,7 +4,7 @@ Revision ID: 001
 Revises:
 Create Date: 2026-07-10
 
-PBBV-2 BA complete (remediation-13): Jira specification authored at docs/pbbv-2-jira-specification.md (Gate A PreQA SPEC_MISSING fix). Follow-on revision 002_psr_catalog (psr_artifacts / nested / route mappings) stays engineering-gated until that spec is accepted and PBL library decomposition clears. Spec materializes BA objective: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates.
+PBBV-2 BA complete (remediation-14): Jira specification authored at docs/pbbv-2-jira-specification.md (Gate A PreQA SPEC_MISSING fix — file must be applied as an artifact). Follow-on revision 002_psr_catalog (psr_artifacts / nested / route mappings) stays engineering-gated until that spec is accepted and PBL library decomposition clears. Spec materializes BA objective: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates.
 
 """
 
