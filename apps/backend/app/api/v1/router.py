@@ -12,3 +12,4 @@ def health_check() -> HealthResponse:
     return HealthResponse(status="ok", environment=settings.environment)
 
 # PBBV-2 BA Gate A complete (remediation-12): /api/v1/psr/* catalog routes stay deferred; docs/pbbv-2-jira-specification.md is the accepted BA gate artifact pending PBL library decomposition (PreQA SPEC_MISSING fix).
+# BA deliverable locked: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates.
