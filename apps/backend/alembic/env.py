@@ -55,4 +55,4 @@ if context.is_offline_mode():
 else:
     run_migrations_online()
 
-# PBBV-2 BA Gate A (remediation-18): docs/pbbv-2-jira-specification.md applied; 002_psr_catalog remains engineering-gated until PBL library decomposition.
+# PBBV-2 BA Gate A (remediation-19): docs/pbbv-2-jira-specification.md applied; 002_psr_catalog remains engineering-gated until PBL library decomposition.
