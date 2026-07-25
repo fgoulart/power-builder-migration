@@ -85,10 +85,10 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
 
 
 # PBBV-2 BA complete: docs/pbbv-2-jira-specification.md must remain discoverable for Gate A/B.
-# Remediation-46: BA deliverable is docs/pbbv-2-jira-specification.md (outside apps/backend allowlist; required in codegen files for PreQA Input.files SPEC_MISSING fix); gate test asserts anchors; PreQA allowlisted review also sees anchors via comments below.
+# Remediation-47: BA deliverable is docs/pbbv-2-jira-specification.md (outside apps/backend allowlist; required in codegen files for PreQA Input.files SPEC_MISSING fix); gate test asserts anchors; PreQA allowlisted review also sees anchors via comments below.
 # BA objective locked: I'll inspect the destination repo and card config, then produce a complete Jira specification that follows all gates.
 PBBV2_BA_JIRA_SPEC_RELPATH = "docs/pbbv-2-jira-specification.md"
-PBBV2_BA_NOOP_REMEDIATION_MARKER = "pbbv-2-ba-jira-spec-gates-remediation-46"
+PBBV2_BA_NOOP_REMEDIATION_MARKER = "pbbv-2-ba-jira-spec-gates-remediation-47"
 # Gate A anchors (allowlisted PreQA discoverability; full artifact at docs/pbbv-2-jira-specification.md):
 # ### [JAMES_JIRA_AGENTIC] [Modernization] - Convert PSR golden-master artifacts into automated report parity test fixtures
 # Dependencies:** This card is blocked by: `[JAMES_JIRA_AGENTIC] [Architecture] - PBL library decomposition`.
