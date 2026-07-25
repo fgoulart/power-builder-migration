@@ -5,9 +5,8 @@
     "changeOrigin": true,
     "xfwd": true,
     "ws": true,
-    "logLevel": "info",
+    "logLevel": "warn",
     "timeout": 30000,
-    "proxyTimeout": 30000,
-    "pathRewrite": false
+    "proxyTimeout": 30000
   }
 }
