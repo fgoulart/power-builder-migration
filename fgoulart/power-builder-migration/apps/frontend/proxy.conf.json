@@ -7,6 +7,7 @@
     "ws": true,
     "logLevel": "info",
     "timeout": 30000,
-    "proxyTimeout": 30000
+    "proxyTimeout": 30000,
+    "pathRewrite": false
   }
 }
