@@ -4,6 +4,7 @@
     "secure": false,
     "changeOrigin": true,
     "xfwd": true,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "timeout": 30000
   }
 }
