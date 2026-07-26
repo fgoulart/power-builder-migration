@@ -9,6 +9,9 @@
     "timeout": 90000,
     "proxyTimeout": 90000,
     "followRedirects": true,
-    "protocolRewrite": "http"
+    "protocolRewrite": "http",
+    "pathRewrite": {
+      "^/api": "/api"
+    }
   }
 }
