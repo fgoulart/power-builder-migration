@@ -6,7 +6,7 @@
     "xfwd": true,
     "ws": true,
     "logLevel": "info",
-    "timeout": 120000,
-    "proxyTimeout": 120000
+    "timeout": 90000,
+    "proxyTimeout": 90000
   }
 }
