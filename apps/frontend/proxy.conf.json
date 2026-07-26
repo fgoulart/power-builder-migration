@@ -8,6 +8,7 @@
     "logLevel": "info",
     "timeout": 90000,
     "proxyTimeout": 90000,
-    "followRedirects": true
+    "followRedirects": true,
+    "protocolRewrite": "http"
   }
 }
