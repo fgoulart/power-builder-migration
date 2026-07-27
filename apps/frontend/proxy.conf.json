@@ -1,6 +1,5 @@
-[
-  {
-    "context": ["/api"],
+{
+  "/api": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true,
@@ -16,4 +15,4 @@
       "X-Forwarded-Host": "localhost:8080"
     }
   }
-]
+}
