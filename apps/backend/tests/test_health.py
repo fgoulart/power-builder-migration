@@ -77,3 +77,50 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
     assert settings.psr_golden_dir.parts[-2:] == ("psr", "golden")
     assert settings.psr_metadata_dir.parts[-2:] == ("psr", "metadata")
     assert settings.psr_route_map_path.name == "psr-route-map.json"
+
+
+
+# PBBV-6: Module registry / LibList diagnostic foundation
+
+def test_get_modules_returns_200() -> None:
+    response = client.get("/api/v1/modules")
+    assert response.status_code == 200
+
+
+def test_get_modules_resolution_ok_true() -> None:
+    response = client.get("/api/v1/modules")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["resolution_ok"] is True
+    assert data["errors"] == []
+
+
+def test_runtime_modules_include_pbexamfe_resolved() -> None:
+    response = client.get("/api/v1/modules")
+    data = response.json()
+    runtime_modules = data["runtime_modules"]
+    assert len(runtime_modules) == 10
+    first = runtime_modules[0]
+    assert first["pbl"] == "pbexamfe"
+    assert first["id"] == "shell"
+    assert first["status"] == "resolved"
+    assert first["load_order"] == 1
+    assert [m["load_order"] for m in runtime_modules] == list(range(1, 11))
+
+
+def test_build_only_modules_include_stored_procedures() -> None:
+    response = client.get("/api/v1/modules")
+    data = response.json()
+    build_only_modules = data["build_only_modules"]
+    assert any(m["id"] == "stored-procedures" and m["pbl"] == "pbexamsa" for m in build_only_modules)
+    runtime_pbls = {m["pbl"] for m in data["runtime_modules"]}
+    assert "pbexamsa" not in runtime_pbls
+    assert "pbexamor" not in runtime_pbls
+
+
+def test_validate_runtime_resolution_direct() -> None:
+    from app.core.config import get_runtime_modules, validate_runtime_resolution
+
+    report = validate_runtime_resolution()
+    assert report.ok is True
+    assert len(get_runtime_modules()) == 10
