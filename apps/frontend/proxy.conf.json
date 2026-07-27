@@ -1,14 +1,11 @@
-{
-  "/api": {
+[
+  {
+    "context": ["/api"],
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true,
-    "ignorePath": false,
-    "pathRewrite": {
-      "^/api": "/api"
-    },
-    "xfwd": true,
     "ws": true,
+    "xfwd": true,
     "logLevel": "info",
     "timeout": 120000,
     "proxyTimeout": 120000,
@@ -21,16 +18,13 @@
       "X-Forwarded-Proto": "http"
     }
   },
-  "/launcher": {
+  {
+    "context": ["/launcher"],
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true,
-    "ignorePath": false,
-    "pathRewrite": {
-      "^/launcher": "/launcher"
-    },
-    "xfwd": true,
     "ws": false,
+    "xfwd": true,
     "logLevel": "info",
     "timeout": 120000,
     "proxyTimeout": 120000,
@@ -43,4 +37,4 @@
       "X-Forwarded-Proto": "http"
     }
   }
-}
+]
