@@ -8,6 +8,7 @@
     "logLevel": "info",
     "timeout": 120000,
     "proxyTimeout": 120000,
+    "followRedirects": true,
     "headers": {
       "Connection": "keep-alive"
     }
