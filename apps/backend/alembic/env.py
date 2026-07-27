@@ -54,3 +54,5 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
+# PBBV-2 BA Gate A (remediation-99): docs/pbbv-2-jira-specification.md MUST be in codegen files AND PreQA Input.files (SPEC_MISSING); apply only to 66704f36 power-builder-migration — never origin 70809e6f (WORKSPACE_MISMATCH); 002_psr_catalog engineering-gated until PBL library decomposition.
