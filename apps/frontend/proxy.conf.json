@@ -12,7 +12,25 @@
     "headers": {
       "Connection": "keep-alive",
       "X-Forwarded-Prefix": "/api",
-      "X-Forwarded-Host": "localhost:8080"
+      "X-Forwarded-Host": "localhost:8080",
+      "X-Forwarded-Proto": "http"
+    }
+  },
+  "/launcher": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "xfwd": true,
+    "ws": false,
+    "logLevel": "info",
+    "timeout": 120000,
+    "proxyTimeout": 120000,
+    "followRedirects": true,
+    "headers": {
+      "Connection": "keep-alive",
+      "X-Forwarded-Prefix": "/launcher",
+      "X-Forwarded-Host": "localhost:8080",
+      "X-Forwarded-Proto": "http"
     }
   }
 }
