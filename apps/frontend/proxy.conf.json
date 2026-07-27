@@ -1,5 +1,6 @@
-{
-  "/api": {
+[
+  {
+    "context": ["/api"],
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true,
@@ -11,7 +12,8 @@
     "followRedirects": true,
     "headers": {
       "Connection": "keep-alive",
-      "X-Forwarded-Prefix": "/api"
+      "X-Forwarded-Prefix": "/api",
+      "X-Forwarded-Host": "localhost:8080"
     }
   }
-}
+]
