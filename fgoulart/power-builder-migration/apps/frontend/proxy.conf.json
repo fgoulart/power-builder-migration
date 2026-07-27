@@ -6,8 +6,10 @@
     "xfwd": true,
     "ws": true,
     "logLevel": "info",
-    "timeout": 90000,
-    "proxyTimeout": 90000,
-    "followRedirects": true
+    "timeout": 120000,
+    "proxyTimeout": 120000,
+    "headers": {
+      "Connection": "keep-alive"
+    }
   }
 }
