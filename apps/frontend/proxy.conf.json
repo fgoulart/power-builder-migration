@@ -9,6 +9,9 @@
     "timeout": 120000,
     "proxyTimeout": 120000,
     "followRedirects": true,
+    "pathRewrite": {
+      "^/api": "/api"
+    },
     "headers": {
       "Connection": "keep-alive",
       "X-Forwarded-Prefix": "/api",
@@ -26,6 +29,9 @@
     "timeout": 120000,
     "proxyTimeout": 120000,
     "followRedirects": true,
+    "pathRewrite": {
+      "^/launcher": "/launcher"
+    },
     "headers": {
       "Connection": "keep-alive",
       "X-Forwarded-Prefix": "/launcher",
