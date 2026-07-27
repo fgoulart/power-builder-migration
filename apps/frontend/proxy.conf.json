@@ -1,6 +1,5 @@
-[
-  {
-    "context": ["/api"],
+{
+  "/api": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true,
@@ -9,9 +8,8 @@
     "logLevel": "info",
     "timeout": 120000,
     "proxyTimeout": 120000,
-    "followRedirects": true,
     "headers": {
       "Connection": "keep-alive"
     }
   }
-]
+}
