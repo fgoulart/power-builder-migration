@@ -11,6 +11,9 @@
     "followRedirects": true,
     "headers": {
       "Connection": "keep-alive"
+    },
+    "pathRewrite": {
+      "^/api": "/api"
     }
   }
 }
