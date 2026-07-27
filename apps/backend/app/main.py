@@ -9,6 +9,14 @@ from app.core.config import settings
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    if settings.debug or settings.validate_modules_on_startup:
+        from app.modules.registry import resolve_modules
+
+        status = resolve_modules()
+        if not status["resolution_ok"]:
+            raise RuntimeError(
+                f"Module registry resolution failed: {status.get('errors', [])}"
+            )
     yield
 
 

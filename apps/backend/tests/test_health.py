@@ -77,3 +77,56 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
     assert settings.psr_golden_dir.parts[-2:] == ("psr", "golden")
     assert settings.psr_metadata_dir.parts[-2:] == ("psr", "metadata")
     assert settings.psr_route_map_path.name == "psr-route-map.json"
+
+# PBBV-6: Module registry foundation — LibList / EXLIST resolution contract.
+
+EXPECTED_RUNTIME_LIBLIST = [
+    "pbexamfe",
+    "pbexamd1",
+    "pbexamd2",
+    "pbexamfn",
+    "pbexammn",
+    "pbexamsy",
+    "pbexamuo",
+    "pbexamw1",
+    "pbexamw2",
+    "pbexamw3",
+]
+
+EXPECTED_BUILD_ONLY = ["pbexamsa", "pbexamor"]
+
+
+def test_modules_api_resolution_ok() -> None:
+    response = client.get("/api/v1/modules")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["resolution_ok"] is True
+    assert data["load_order"] == EXPECTED_RUNTIME_LIBLIST
+    assert data["runtime_modules"][0]["pbl_id"] == "pbexamfe"
+    assert data["runtime_modules"][0]["status"] == "resolved"
+    build_ids = [m["pbl_id"] for m in data["build_only_modules"]]
+    assert build_ids == EXPECTED_BUILD_ONLY
+    assert any(m["module_id"] == "stored-procedures" for m in data["build_only_modules"])
+    assert any(m["pbl_id"] == "pbexamsa" for m in data["build_only_modules"])
+
+
+def test_registry_resolve_modules_matches_origin_liblist() -> None:
+    from app.modules.registry import resolve_modules
+
+    status = resolve_modules()
+    assert status["resolution_ok"] is True
+    assert [m["pbl_id"] for m in status["runtime_modules"]] == EXPECTED_RUNTIME_LIBLIST
+    assert status["load_order"] == EXPECTED_RUNTIME_LIBLIST
+    assert all(m["status"] == "resolved" for m in status["resolved"])
+    assert [m["pbl_id"] for m in status["build_only_modules"]] == EXPECTED_BUILD_ONLY
+
+
+def test_migration_inventory_paths_align_with_settings() -> None:
+    from app.core.config import settings
+
+    root = settings.resolved_migration_inventory_root
+    assert root.parts[-2:] == ("migration", "origin-inventory")
+    assert settings.runtime_liblist_path.name == "runtime-liblist.json"
+    assert settings.build_exlist_path.name == "build-exlist.json"
+    assert settings.library_manifest_path.name == "library-manifest.yaml"
+    assert settings.dependency_graph_path.name == "dependency-graph.json"

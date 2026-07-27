@@ -1,8 +1,10 @@
 from fastapi import APIRouter
 
+from app.api.v1.modules_router import router as modules_router
 from app.schemas.health import HealthResponse
 
 router = APIRouter()
+router.include_router(modules_router, tags=["modules"])
 
 
 @router.get("/health", response_model=HealthResponse)
