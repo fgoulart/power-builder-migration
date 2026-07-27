@@ -22,4 +22,4 @@ class TimestampMixin:
 
 __all__ = ["Base", "TimestampMixin"]
 
-# PBBV-2 BA Gate A (remediation-98): TimestampMixin reused by deferred PsrArtifact models after docs/pbbv-2-jira-specification.md gates.
+# PBBV-2 BA Gate A (remediation-99): TimestampMixin reused by deferred PsrArtifact models after docs/pbbv-2-jira-specification.md gates.
