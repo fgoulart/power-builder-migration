@@ -4,6 +4,9 @@
     "secure": false,
     "changeOrigin": true,
     "ignorePath": false,
+    "pathRewrite": {
+      "^/api": "/api"
+    },
     "xfwd": true,
     "ws": true,
     "logLevel": "info",
@@ -23,6 +26,9 @@
     "secure": false,
     "changeOrigin": true,
     "ignorePath": false,
+    "pathRewrite": {
+      "^/launcher": "/launcher"
+    },
     "xfwd": true,
     "ws": false,
     "logLevel": "info",
