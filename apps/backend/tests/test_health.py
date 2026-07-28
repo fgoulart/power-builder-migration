@@ -77,3 +77,55 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
     assert settings.psr_golden_dir.parts[-2:] == ("psr", "golden")
     assert settings.psr_metadata_dir.parts[-2:] == ("psr", "metadata")
     assert settings.psr_route_map_path.name == "psr-route-map.json"
+
+# PBBV-6: Module registry mirrors origin LibList / EXLIST resolution.
+
+EXPECTED_RUNTIME_PBLS = (
+    "pbexamfe",
+    "pbexamd1",
+    "pbexamd2",
+    "pbexamfn",
+    "pbexammn",
+    "pbexamsy",
+    "pbexamuo",
+    "pbexamw1",
+    "pbexamw2",
+    "pbexamw3",
+)
+
+EXPECTED_BUILD_ONLY_PBLS = ("pbexamsa", "pbexamor")
+
+
+def test_modules_endpoint_reports_resolution_ok() -> None:
+    response = client.get("/api/v1/modules")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["resolution_ok"] is True
+    assert data["runtime_modules"][0]["pbl_id"] == "pbexamfe"
+    assert [m["pbl_id"] for m in data["runtime_modules"]] == list(EXPECTED_RUNTIME_PBLS)
+    assert data["load_order"] == list(EXPECTED_RUNTIME_PBLS)
+    build_only_ids = [m["pbl_id"] for m in data["build_only_modules"]]
+    assert "pbexamsa" in build_only_ids
+    stored = next(m for m in data["build_only_modules"] if m["pbl_id"] == "pbexamsa")
+    assert stored["module_id"] == "stored-procedures"
+    assert all(m["status"] == "resolved" for m in data["runtime_modules"])
+
+
+def test_registry_validate_resolution_matches_liblist() -> None:
+    from app.modules.registry import BUILD_ONLY_MODULES, RUNTIME_MODULES, validate_resolution
+
+    result = validate_resolution()
+    assert result["resolution_ok"] is True
+    assert len(RUNTIME_MODULES) == 10
+    assert [m.pbl_id for m in RUNTIME_MODULES] == list(EXPECTED_RUNTIME_PBLS)
+    assert [m.pbl_id for m in BUILD_ONLY_MODULES] == list(EXPECTED_BUILD_ONLY_PBLS)
+    assert result["load_order"] == list(EXPECTED_RUNTIME_PBLS)
+
+
+def test_migration_inventory_paths_align_with_settings() -> None:
+    from app.core.config import settings
+
+    root = settings.resolved_migration_inventory_root
+    assert root.parts[-2:] == ("migration", "origin-inventory")
+    assert settings.runtime_liblist_path.name == "runtime-liblist.json"
+    assert settings.build_exlist_path.name == "build-exlist.json"
