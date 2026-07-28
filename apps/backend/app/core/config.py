@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:4200"
     api_v1_prefix: str = "/api/v1"
     psr_fixtures_root: str | None = None
+    migration_inventory_root: str | None = None
 
     @property
     def cors_origins_list(self) -> list[str]:
@@ -40,6 +41,13 @@ class Settings(BaseSettings):
     @property
     def psr_route_map_path(self) -> Path:
         return self.psr_metadata_dir / "psr-route-map.json"
+
+    @property
+    def resolved_migration_inventory_root(self) -> Path:
+        if self.migration_inventory_root:
+            return Path(self.migration_inventory_root).expanduser().resolve()
+        repo_root = Path(__file__).resolve().parents[4]
+        return (repo_root / "migration" / "origin-inventory").resolve()
 
 
 settings = Settings()
