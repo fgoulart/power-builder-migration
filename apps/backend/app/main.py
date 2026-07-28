@@ -9,6 +9,12 @@ from app.core.config import settings
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    if settings.environment == "development" and settings.debug:
+        from app.core.config import validate_runtime_resolution
+
+        report = validate_runtime_resolution()
+        app.state.module_resolution_ok = bool(report["resolution_ok"])
+        app.state.module_resolution_errors = list(report["errors"])
     yield
 
 
