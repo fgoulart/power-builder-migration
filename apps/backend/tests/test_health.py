@@ -77,3 +77,29 @@ def test_verify_psr_target_directories_align_with_settings() -> None:
     assert settings.psr_golden_dir.parts[-2:] == ("psr", "golden")
     assert settings.psr_metadata_dir.parts[-2:] == ("psr", "metadata")
     assert settings.psr_route_map_path.name == "psr-route-map.json"
+
+
+# PBBV-6: Module registry diagnostic API.
+
+def test_get_modules_returns_runtime_and_build_only() -> None:
+    response = client.get("/api/v1/modules")
+    assert response.status_code == 200
+    data = response.json()
+    assert "runtime_modules" in data
+    assert "build_only_modules" in data
+    assert data["resolution_ok"] is True
+    runtime = data["runtime_modules"]
+    assert len(runtime) == 10
+    assert runtime[0]["pbl"] == "pbexamfe"
+    assert runtime[0]["status"] == "resolved"
+    assert runtime[0]["load_order"] == 1
+    build_only = data["build_only_modules"]
+    assert any(i["id"] == "stored-procedures" for i in build_only)
+    assert any(i["pbl"] == "pbexamsa" for i in build_only)
+
+def test_runtime_modules_match_liblist_order() -> None:
+    from app.modules.registry import get_runtime_modules
+    assert [m.pbl for m in get_runtime_modules()] == [
+        "pbexamfe","pbexamd1","pbexamd2","pbexamfn","pbexammn",
+        "pbexamsy","pbexamuo","pbexamw1","pbexamw2","pbexamw3",
+    ]
